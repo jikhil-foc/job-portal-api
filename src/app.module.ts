@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { RouterModule } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -9,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     RouterModule.register(routes),
     TypeOrmModule.forRoot({
       type: 'postgres',

@@ -12,6 +12,10 @@ import {
 
 export class UserRegisterDto {
   @ApiProperty()
+  @IsString()
+  name: string;
+
+  @ApiProperty()
   @IsEmail()
   email: string;
 

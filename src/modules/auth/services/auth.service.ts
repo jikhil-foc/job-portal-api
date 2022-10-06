@@ -25,6 +25,7 @@ export class AuthService {
     const userData = new User();
     userData.email = user.email;
     userData.password = user.password;
+    userData.name = user.name;
     userData.role = UserRole.ADMIN;
 
     return await this.repo.save(userData);
@@ -34,6 +35,7 @@ export class AuthService {
     const userData = new User();
     userData.email = user.email;
     userData.password = user.password;
+    userData.name = user.name;
     userData.role = UserRole.USER;
 
     return await this.repo.save(userData);
