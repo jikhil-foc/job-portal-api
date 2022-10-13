@@ -1,9 +1,14 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import User, { UserRole } from '../../../entity/user.entity';
 import { Repository } from 'typeorm';
 import { UserRegisterDto } from '../dto/user-registration.dto';
 import { JwtService } from '@nestjs/jwt';
+import { UserLoginDto } from '../dto/user-login.dto';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +33,22 @@ export class AuthService {
     userData.name = user.name;
     userData.role = UserRole.ADMIN;
 
-    return await this.repo.save(userData);
+    const isDuplicate =
+      (await this.repo.count({
+        where: {
+          email: user.email,
+        },
+      })) > 0;
+
+    if (isDuplicate) {
+      throw new HttpException('Email id already exist', 400);
+    }
+
+    await this.repo.save(userData);
+
+    return {
+      message: 'Admin user has been Created',
+    };
   }
 
   async createUser(user: UserRegisterDto) {
@@ -38,10 +58,25 @@ export class AuthService {
     userData.name = user.name;
     userData.role = UserRole.USER;
 
-    return await this.repo.save(userData);
+    const isDuplicate =
+      (await this.repo.count({
+        where: {
+          email: user.email,
+        },
+      })) > 0;
+
+    if (isDuplicate) {
+      throw new HttpException('Email id already exist', 400);
+    }
+
+    await this.repo.save(userData);
+
+    return {
+      message: 'User has been Registered',
+    };
   }
 
-  async login(userData: UserRegisterDto) {
+  async login(userData: UserLoginDto) {
     const user = await this.repo.findOne({
       where: { email: userData.email, password: userData.password },
     });
@@ -50,6 +85,7 @@ export class AuthService {
       const payload = { ...user };
       return {
         access_token: this.jwtService.sign(payload),
+        user: payload,
       };
     }
     throw new UnauthorizedException();
