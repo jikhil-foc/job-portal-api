@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { JobModule } from './modules/job/job.module';
 import { routes } from './router';
-import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [

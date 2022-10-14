@@ -25,9 +25,10 @@ export class JobController {
     return this.jobService.createJob(jobDto);
   }
 
-  @Patch('update-job')
+  @Patch('update-job/:id')
   @ApiOperation({ summary: 'update job' })
   updateJob(@Param('id') id: number, @Body() jobDto: CreateJobDto) {
+    console.log(id);
     return this.jobService.updateJob(id, jobDto);
   }
 
