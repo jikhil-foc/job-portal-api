@@ -40,6 +40,7 @@ export class JobService {
     job.company = jobDto.company;
     job.salary = jobDto.salary;
     job.isActive = true;
+    job.location = jobDto.location;
 
     await this.repo.save(job);
 
@@ -59,6 +60,7 @@ export class JobService {
     job.salary = jobDto.salary;
     job.isActive = true;
     job.id = id;
+    job.location = jobDto.location;
 
     await this.repo.save(job);
 

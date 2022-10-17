@@ -24,5 +24,9 @@ export default class CreateJobDto {
   salary: string;
 
   @ApiProperty()
+  @IsString()
+  location: string;
+
+  @ApiProperty()
   skills: string[];
 }

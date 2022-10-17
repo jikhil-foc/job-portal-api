@@ -30,6 +30,9 @@ export default class Job extends BaseEntity {
   @Column()
   salary: string;
 
+  @Column()
+  location: string;
+
   @ManyToMany(() => Skill, (sk) => sk.jobs, {})
   @JoinTable()
   skills: Skill[];

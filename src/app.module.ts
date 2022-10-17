@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
+import { ClientJobModule } from './modules/client-job/client-job.module';
 import { JobModule } from './modules/job/job.module';
 import { routes } from './router';
 
@@ -24,6 +25,7 @@ import { routes } from './router';
     }),
     AuthModule,
     JobModule,
+    ClientJobModule,
   ],
   controllers: [AppController],
   providers: [AppService],
