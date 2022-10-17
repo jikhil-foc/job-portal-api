@@ -10,7 +10,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { filter } from 'rxjs';
 import CreateJobDto from '../dto/create-job.dto';
 import { JobService } from '../services/job.services';
 

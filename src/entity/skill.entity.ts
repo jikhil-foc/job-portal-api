@@ -3,7 +3,6 @@ import {
   Column,
   Entity,
   ManyToMany,
-  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import Job from './job.entity';
@@ -18,7 +17,4 @@ export default class Skill extends BaseEntity {
 
   @ManyToMany(() => Job, (jb) => jb.skills)
   jobs: Job[];
-
-  // @ManyToOne(() => Job, (job) => job.skills)
-  // job: Job;
 }
