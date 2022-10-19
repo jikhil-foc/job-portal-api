@@ -18,7 +18,7 @@ export default class Job extends BaseEntity {
   @Column()
   title: string;
 
-  @Column({ length: 1000 })
+  @Column({ length: 10000 })
   description: string;
 
   @Column()
@@ -32,6 +32,12 @@ export default class Job extends BaseEntity {
 
   @Column()
   location: string;
+
+  @Column()
+  jobType: string;
+
+  @Column()
+  shift: string;
 
   @ManyToMany(() => Skill, (sk) => sk.jobs, {})
   @JoinTable()

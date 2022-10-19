@@ -8,7 +8,6 @@ export default class CreateJobDto {
 
   @ApiProperty()
   @IsString()
-  @MaxLength(1000)
   description: string;
 
   @ApiProperty()
@@ -29,4 +28,12 @@ export default class CreateJobDto {
 
   @ApiProperty()
   skills: string[];
+
+  @ApiProperty()
+  @IsString()
+  jobType: string;
+
+  @ApiProperty()
+  @IsString()
+  shift: string;
 }

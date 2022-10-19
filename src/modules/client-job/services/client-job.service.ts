@@ -10,18 +10,31 @@ export class ClientJobService {
     private repo: Repository<Job>,
   ) {}
 
-  async getAllJobs(filter: string) {
+  async getAllJobs(title: string, location: string) {
     const [jobs, count] = await this.repo.findAndCount({
       relations: {
         skills: true,
       },
       order: { id: 'ASC' },
       where: [
-        { title: Raw((alias) => `LOWER(${alias}) Like '%${filter}%'`) },
-        { company: Raw((alias) => `LOWER(${alias}) Like '%${filter}%'`) },
+        {
+          title: Raw((alias) => `LOWER(${alias}) Like '%${title}%'`),
+          location: Raw((alias) => `LOWER(${alias}) Like '%${location}%'`),
+        },
       ],
     });
 
     return { jobs, count };
+  }
+
+  async getJobDetailsById(id: number) {
+    const job = await this.repo.findOne({
+      relations: {
+        skills: true,
+      },
+      where: { id },
+    });
+
+    return job;
   }
 }
