@@ -1,10 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  CreateJobMock,
-  JobMock,
-  SingleJobMock,
-} from '../../../mocks/jobs.mock';
+import { CreateJobMock, JobMock } from '../../../mocks/jobs.mock';
 import CreateJobDto from '../dto/create-job.dto';
 import { JobService } from '../services/job.services';
 import { JobController } from './job.controller';
@@ -13,7 +9,6 @@ describe('JobController', () => {
   let controller: JobController;
 
   const jobs = JobMock;
-  const singleJob = SingleJobMock;
 
   const jobServiceMock = {
     getJobs: jest.fn((pageNo = 1, pageLimit = 10) => {
@@ -27,6 +22,19 @@ describe('JobController', () => {
         id: Date.now(),
         ...dto,
       };
+    }),
+    deleteJob: jest.fn((id) => {
+      return jobs.find((job) => job.id === id);
+    }),
+    updateJob: jest.fn((id, dto: CreateJobDto) => {
+      const result = jobs.map((job) => {
+        if (job.id === id) {
+          return Object.assign({}, job, dto);
+        }
+        return job;
+      });
+
+      return result[0];
     }),
   };
 
@@ -65,5 +73,18 @@ describe('JobController', () => {
       id: expect.any(Number),
       ...job,
     });
+  });
+
+  it('should update jobs', () => {
+    const job: CreateJobDto = CreateJobMock;
+    expect(controller.updateJob(1, job)).toEqual({
+      id: expect.any(Number),
+      ...job,
+    });
+  });
+
+  it('should delete job by Id', () => {
+    const deletedJob = jobs.find((job) => job.id === 1);
+    expect(controller.deleteJob(1)).toEqual(deletedJob);
   });
 });

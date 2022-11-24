@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import CreateJobDto from '../dto/create-job.dto';
+
 import { DashboardService } from '../services/dashboard.service';
-import { JobService } from '../services/job.services';
 
 @ApiTags('dashboard')
 @Controller('')
