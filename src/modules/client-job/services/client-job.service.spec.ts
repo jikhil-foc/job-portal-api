@@ -4,10 +4,14 @@ import { ClientJobService } from './client-job.service';
 describe('ClientJobService', () => {
   let service: ClientJobService;
 
+  const clientJobMockService = {};
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [ClientJobService],
-    }).compile();
+    })
+      .overrideProvider(ClientJobService)
+      .useValue(clientJobMockService)
+      .compile();
 
     service = module.get<ClientJobService>(ClientJobService);
   });
