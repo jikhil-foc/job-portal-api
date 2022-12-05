@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -27,22 +28,18 @@ export class JobController {
   @Patch('update-job/:id')
   @ApiOperation({ summary: 'update job' })
   updateJob(@Param('id') id: number, @Body() jobDto: CreateJobDto) {
-    console.log(id);
     return this.jobService.updateJob(id, jobDto);
   }
 
   @Get('get-all-jobs')
   @ApiOperation({ summary: 'Get All Jobs' })
-  getJobs(
-    @Query('page') pageNo: number = 1,
-    @Query('limit') pageLimit: number = 10,
-  ) {
+  getJobs(@Query('page') pageNo = 1, @Query('limit') pageLimit = 10) {
     return this.jobService.getJobs(pageNo, pageLimit);
   }
 
   @Get('get-all')
   @ApiOperation({ summary: 'Get All Jobs' })
-  getAllJobs(@Query('filter') filter: string = '') {
+  getAllJobs(@Query('filter') filter = '') {
     return this.jobService.getAllJobs(filter);
   }
 
